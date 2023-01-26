@@ -1,0 +1,27 @@
+{
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "10",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "debezium",
+    "database.password": "dbz",
+    "database.server.id": "111111",
+    "database.server.name": "mysql",
+    "database.whitelist": "inventory",
+    "database.history.kafka.bootstrap.servers": "broker-1:9092,broker-2:9092,broker-3:9092,broker-4:9092",
+    "database.history.kafka.topic": "dbhistory.inventory",
+    "sanitize.field.names": "true",
+    "snapshot.mode": "when_needed",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+
+    "transforms" : "remove_mandt,struct_to_string,unwrap",
+
+    "transforms.remove_mandt.type" : "org.apache.kafka.connect.transforms.ReplaceField$Key",
+    "transforms.remove_mandt.blacklist" : "MANDT",
+
+    "transforms.struct_to_string.type": "com.medtronic.poc.connect.smt.StructToString$Key",
+
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState"
+
+}

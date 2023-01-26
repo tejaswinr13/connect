@@ -1,0 +1,22 @@
+---
+version: '3.7'
+
+networks:
+  default:
+    external:
+      name: kafka-local
+
+services:
+
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss:latest
+    hostname: artifactory
+    container_name: kl_artifactory
+    restart: always
+    ports:
+      - "9081:8081"
+      - "9082:8082"
+    environment:
+      EXTRA_JAVA_OPTIONS: "-Xms512m -Xmx2g -Xss256k -XX:+UseG1GC"
+      xSERVER_XML_ARTIFACTORY_PORT: 9081
+

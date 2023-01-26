@@ -1,0 +1,24 @@
+{
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+		"dialect.name" : "MySqlDatabaseDialect",
+    "tasks.max": "1",
+    "topics.regex": "THOR.(.*)",
+    "table.name.format": "${topic}",
+    "connection.url": "jdbc:mysql://mysql:3306/THOR?user=mysqluser&password=mysqlpw&useSSL=false",
+    "quote.sql.identifiers": "never",
+    "quote.database.names": "never",
+    "quote.table.names": "never",
+    "quote.column.names": "never",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+
+    "transforms":"dropPrefix",
+    "transforms.dropPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.dropPrefix.regex":"THOR\\.(.*)",
+    "transforms.dropPrefix.replacement": "$1",
+
+    "auto.create": "true",
+    "insert.mode": "upsert",
+    "_pk.mode": "record_key",
+    "pk.mode": "none"
+}

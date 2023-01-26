@@ -1,0 +1,27 @@
+[
+  {
+    "targets": [
+    ],
+    "labels": {
+      "job": "producers"
+    }
+  },
+  {
+    "targets": [
+    ],
+    "labels": {
+      "job": "consumers"
+    }
+  },
+  {
+    "targets": [  
+      "api-ingestion:7071",
+      "dih-ingestion:7071",
+      "canonical:7071"
+      "eds-publisher:7071"
+    ],
+    "labels": {
+      "job": "streams"
+    }
+  }
+]

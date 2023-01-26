@@ -1,0 +1,25 @@
+{
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "dialect.name" : "MySqlDatabaseDialect",
+    "tasks.max": "1",
+    "topics.regex": "cp3\\-from_(.*)",
+    "table.name.format": "${topic}",
+    "connection.url": "jdbc:mysql://mysql:3306/EDS?user=root&password=debezium&useSSL=false",
+    "quote.sql.identifiers": "never",
+    "quote.database.names": "never",
+    "quote.table.names": "never",
+    "quote.column.names": "never",
+
+    "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+
+    "transforms":"dropPrefix",
+    "transforms.dropPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.dropPrefix.regex":"cp3-from_(.*)",
+    "transforms.dropPrefix.replacement": "$1",
+
+    "pk.fields" : "id",
+    "auto.create": "true",
+    "insert.mode": "upsert",
+    "pk.mode": "record_key",
+    "delete.enabled": "true"
+}

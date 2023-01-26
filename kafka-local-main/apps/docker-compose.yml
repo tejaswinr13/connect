@@ -1,0 +1,23 @@
+---
+version: '3.7'
+
+networks:
+  default:
+    external:
+      name: kafka-local
+
+services:
+
+#  mulesoft-ingestion:
+#    build: ./mulesoft-ingestion
+#    hostname: mulesoft-ingestion
+#    container_name: kl_mulesoft-ingestion
+#    ports:
+#      - '57071:7071'
+
+  canonical:
+    build: ./canonical
+    hostname: canonical
+    container_name: kl_canonical
+    ports:
+      - '57072:7071'

@@ -1,0 +1,27 @@
+lowercaseOutputName: true
+rules:
+#- pattern: kafka.(.*)
+- pattern: java.lang<type=(.*)>
+- pattern: kafka.(.*)
+- pattern: kafka.streams<type=stream-thread-metrics, thread-id=(.+)-([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})-(.+)><>(.+):.+
+  name: kafka_streams_stream_metrics_$4
+  labels:
+    client_id: "$1"
+    thread_id: "$3"
+#- pattern: kafka.streams:type=stream-state-metrics, thread-id=(.+)-([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})-(.+), task-id=(.*), (.*)-id=(.*)><>(.+):.+
+#  name: kafka_streams_stream_state_metrics_$7
+#  labels:
+#    client_id: "$1"
+#    thread_id: "$3"
+#    task_id: "$4"
+#    store_type: "$5"
+#    store_name: "$6"
+- pattern: kafka.producer<type=producer-metrics, client-id=(.+)><>(.+):.+
+  name: kafka_producer_producer_metrics_$2
+  labels:
+    client_id: "$1"
+- pattern: kafka.consumer<type=consumer-metrics, client-id=(.+)><>(.+):.+
+  name: kafka_consumer_consumer_metrics_$2
+  labels:
+    client_id: "$1"
+

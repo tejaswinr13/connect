@@ -1,0 +1,97 @@
+{
+  "source":"DTRAK",
+  "sourceId":"00030000012345",
+  "resourceType":"Organization",
+  "alternateIds":[
+    {
+      "source":"DTRAK",
+      "sourceId": "0020000012346",
+      "code":"NPI",
+      "value":"12345",
+      "issuingOrganizationCode":"NPI",
+      "issuingOrganizationName": "NPIRegistry",
+      "issuingOrganizationSourceId": "123456",
+      "refusedIndicator": false
+    }
+  ],
+  "organizationCd": "MDT",
+  "organizationName": "Medtronic" ,
+  "preferredName":"Medtronic",
+  "primaryLanguage":{
+    "code":"en",
+    "languageDescription":"English"
+  },
+  "providerType":"Clinic",
+  "subType":"",
+  "noFollowUpIndicator":"NO",
+  "noProcedureIndicator":"NO",
+  "status":"ACTIVE",
+  "statusReason":"",
+  "specialties":[
+    {
+      "code": "M02",
+      "name":"Cardiology Clinical",
+      "priorityValue": 1
+    }
+  ],
+  "effectiveStartDate":"2019-01-01T13:00:00.090Z",
+  "physicalAddresses":[
+    {
+      "id":"abc-4567-890-678",
+      "source":"DTRAK",
+      "sourceId":"00030000012345",
+      "addressComponents":{
+        "lines":[
+            "113 Church St",
+            "Suite 123"
+        ],
+        "city":"Roseville",
+        "region":"Minnesota",
+        "regionAbbreviation":"MN",
+        "country":"United States of America",
+        "countryCode":"US",
+        "postalCode":"30338-1237"
+      },
+      "formatted":"123 Main Street Roseville, MN 55104",
+      "location":{
+        "latitude":"40.123445134",
+        "longitude":"112.34441444"
+      },
+      "timezone":"CST",
+      "isPreferred":"YES",
+      "addressType":"POBOXADDR",
+      "usage":"BUSINESS",
+      "acceptsMail":"YES",
+      "acceptsPackage":"NO",
+      "addressStatus":"active",
+      "statusReason":"",
+      "priority":1,
+      "verificationOverrideIndicator": "NO",
+      "validatedIndicator": "YES"
+    }
+  ],
+  "virtualAddresses":[
+    {
+      "source":"DTRAK",
+      "sourceId":"00030000012345",
+      "virtualAddressType":"PHONE",
+      "components":{
+        "countryCode":"+1",
+        "number":"4546768909",
+        "extension":"12345"
+      },
+      "usage":"BUSINESS",
+      "value":"+14546768909",
+      "formatted":"1 800-123-1234 x 12345",
+      "isPreferred":"NO",
+      "acceptsSMS":"YES",
+      "virtualAddressStatus":"ACTIVE",
+      "statusReason":"",
+      "priority":1,
+      "validIndicator":"YES"
+    }
+  ],
+  "sourceProcess": "mdt-corporate-providersapi",
+   "sourceProcessReason": "Create Provider",
+   "sourceCreateTimestamp": "2020-01-01T13:49:51.141Z " 
+}

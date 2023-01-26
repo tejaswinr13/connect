@@ -1,0 +1,27 @@
+{
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "dialect.name" : "OracleDatabaseDialect",
+    "tasks.max": "1",
+    "connection.url": "jdbc:oracle:thin:@oracle:1521/MES",
+    "connection.user" : "SDS_MAIN",
+    "connection.password" : "SDS_MAIN_PASS",
+
+    "_quote.sql.identifiers": "never",
+    "_quote.database.names": "never",
+    "_quote.table.names": "never",
+    "_quote.column.names": "never",
+
+    "topic.prefix": "SDS_MAIN.",
+
+    "schema.pattern": "SDS_MAIN",
+
+    "poll.interval.ms" : 60000,
+    "mode":"timestamp",
+    "timestamp.column.name": "UPD_TS",
+    "table.whitelist" : "SDS_MAIN.SDS_ENTPR_REF_VAL_RLSHP",
+    "validate.non.null": false,
+
+    "transforms" : "createKey",
+    "transforms.createKey.type" : "org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.createKey.fields" : "SOURCE_KEY_ID, REF_VAL, REL_REF_VAL"
+}

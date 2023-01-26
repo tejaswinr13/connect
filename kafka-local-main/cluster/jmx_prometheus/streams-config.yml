@@ -1,0 +1,4 @@
+lowercaseOutputName: true
+rules:
+  - pattern: java.lang<type=(.*)>
+  - pattern: kafka.streams<type=stream-metrics, client-id=(.+)><>(.*)
