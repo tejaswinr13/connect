@@ -1,0 +1,58 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CsvToJsonConverter {
+
+    public static void main(String[] args) {
+        String csvFilePath = "path/to/your/csv/file.csv";
+        String jsonFilePath = "path/to/your/output/json/file.json";
+
+        List<CodeLabel> codeLabels = readCsvFile(csvFilePath);
+        generateJsonFile(codeLabels, jsonFilePath);
+    }
+
+    private static List<CodeLabel> readCsvFile(String csvFilePath) {
+        List<CodeLabel> codeLabels = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String code = parts[0].trim();
+                    String label = parts[1].trim();
+                    codeLabels.add(new CodeLabel(code, label));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return codeLabels;
+    }
+
+    private static void generateJsonFile(List<CodeLabel> codeLabels, String jsonFilePath) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            objectMapper.writeValue(new java.io.File(jsonFilePath), codeLabels);
+            System.out.println("JSON file generated successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    private static class CodeLabel {
+        private final String code;
+        private final String label;
+    }
+}
