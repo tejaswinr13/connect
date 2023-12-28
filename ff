@@ -1,1 +1,64 @@
-wrgv
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+class PaymentServiceImplTest {
+
+    private WebClient webClient;
+    private CCMConfig ccmConfig;
+    private PaymentServiceImpl paymentService;
+
+    @BeforeEach
+    void setUp() {
+        webClient = Mockito.mock(WebClient.class);
+
+        ccmConfig = new CCMConfig(); // Initialize your CCMConfig as needed
+        WebClient.Builder webClientBuilder = Mockito.mock(WebClient.Builder.class);
+        when(webClientBuilder.baseUrl(any())).thenReturn(webClientBuilder);
+        when(webClientBuilder.build()).thenReturn(webClient);
+        paymentService = new PaymentServiceImpl(webClientBuilder, ccmConfig);
+    }
+
+    @Test
+    void testGetBalanceSuccess() {
+        // Arrange
+        String piHash = "yourPiHash";
+
+        // Mock the WebClient response
+        when(webClient.get())
+                .thenReturn(webClientBuilder.get())
+                .thenReturn(webClientBuilder.uri("/payment/{piHash}/balance", piHash))
+                .thenReturn(webClientBuilder.retrieve())
+                .thenReturn(webClientBuilder.bodyToMono(String.class))
+                .thenReturn(Mono.just("{\"balance\": 100.0}"));
+
+        // Act
+        PaymentResponse paymentResponse = paymentService.getBalance(piHash);
+
+        // Assert
+        assertEquals(100.0, paymentResponse.getBalance());
+    }
+
+    @Test
+    void testGetBalanceError() {
+        // Arrange
+        String piHash = "errorPiHash";
+
+        // Mock the WebClient response
+        when(webClient.get())
+                .thenReturn(webClientBuilder.get())
+                .thenReturn(webClientBuilder.uri("/payment/{piHash}/balance", piHash))
+                .thenReturn(webClientBuilder.retrieve())
+                .thenReturn(webClientBuilder.onStatus(HttpStatus.NOT_FOUND::equals, response -> Mono.empty()));
+
+        // Act and Assert
+        assertThrows(HPException.class, () -> paymentService.getBalance(piHash));
+    }
+}
