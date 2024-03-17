@@ -10,24 +10,34 @@
     <form id="stockForm">
         <label for="currentPrice">Current Stock Price:</label>
         <input type="number" id="currentPrice" name="currentPrice" step="any" required><br><br>
-        <label for="marketCap">Market Capitalization:</label>
+        <label for="marketCap">Market Capitalization (in billion):</label>
         <input type="number" id="marketCap" name="marketCap" required><br><br>
-        <label for="targetMarketCap">Target Market Capitalization:</label>
-        <input type="number" id="targetMarketCap" name="targetMarketCap" required><br><br>
-        <button type="button" onclick="calculateStockPrice()">Calculate</button>
+        <label for="targetPrice">Target Stock Price:</label>
+        <input type="number" id="targetPrice" name="targetPrice" step="any" required><br><br>
+        <button type="button" onclick="calculateTargetMarketCap()">Calculate Target Market Cap</button>
     </form>
     <div id="result"></div>
 
     <script>
-        function calculateStockPrice() {
+        function calculateTargetMarketCap() {
             var currentPrice = parseFloat(document.getElementById('currentPrice').value);
             var marketCap = parseFloat(document.getElementById('marketCap').value);
-            var targetMarketCap = parseFloat(document.getElementById('targetMarketCap').value);
-            
-            var currentShares = marketCap / currentPrice;
-            var targetPrice = targetMarketCap / currentShares;
 
-            document.getElementById('result').innerHTML = "To achieve a market capitalization of $" + targetMarketCap.toLocaleString() + ", the stock price would need to be approximately $" + targetPrice.toFixed(2);
+            // Convert market cap to billion
+            if (marketCap >= 1e9) {
+                marketCap /= 1e9;
+            } else if (marketCap >= 1e6) { // Convert market cap to million
+                marketCap /= 1e6;
+            } else if (marketCap >= 1e3) { // Convert market cap to trillion
+                marketCap /= 1e3;
+            }
+
+            var targetPrice = parseFloat(document.getElementById('targetPrice').value);
+
+            var currentShares = marketCap / currentPrice;
+            var targetMarketCap = currentShares * targetPrice;
+
+            document.getElementById('result').innerHTML = "To achieve a target stock price of $" + targetPrice.toLocaleString() + ", the market capitalization would need to be approximately $" + targetMarketCap.toFixed(2) + " billion.";
         }
     </script>
 </body>
